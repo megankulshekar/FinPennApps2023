@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Questionnaire Form</title>
+    <style>
+        body {
+            background-color: #7875B5; /* Background color */
+            color: black; /* Text color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            background-color: white; /* Form background color */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            text-align: center;
+        }
+        h3 {
+            text-align: center;
+            color: black; /* Subheader text color */
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+        }
+        input[type="text"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF; /* Button color */
+            color: white; /* Button text color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3 style="font-size: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Health Questionnaire Form</h3>
+        <h3>Please fill out your health information below. All information is confidential.</h3>
+        <div class="row mt-5">
+            <div class="col-lg-6">
+                <!-- Google Maps iframe -->
+                <div>
+                    <iframe style="border: 0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3058.9256693285325!2d-75.19179038435411!3d39.952583979419865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6c60dc5007e43%3A0x546d70b2fe335143!2sUniversity%20of%20Pennsylvania!5e0!3m2!1sen!2sus!4v1624967398971!5m2!1sen!2sus" frameborder="0" allowfullscreen></iframe>
+
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <!-- Health questionnaire form -->
+                <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                        </div>
+                    </div>
+                    <!-- New input areas -->
+                    <div class="form-group mt-3">
+                        <input type="text" class="form-control" name="address" id="address" placeholder="Address" required>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="dob">Date of Birth:</label>
+                        <input type="date" class="form-control" name="dob" id="dob" placeholder="Date of Birth" required>
+                    </div>
+                    <div class="form-group mt-3">
+                        <textarea class="form-control" name="symptoms" rows="5" placeholder="Symptoms" required></textarea>
+                    </div>
+                    <div class="form-group mt-3">
+                        <textarea class="form-control" name="medications" rows="5" placeholder="Medications Taken" required></textarea>
+                    </div>
+                    <!-- End of new input areas -->
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('address-form').addEventListener('submit', function (e) {
+          e.preventDefault(); // Prevent the default form submission
+          
+          // Get the user-entered address
+          const address = document.getElementById('address-input').value;
+          document.getElementById('address-form').addEventListener('submit', function (e) {
+  e.preventDefault(); // Prevent the default form submission
+
+  // Get the user-entered address
+  const address = document.getElementById('address-input').value;
+
+  // Create an object with the address
+  const requestData = {
+    address: address
+  };
+
+  // Send a POST request to your backend
+  fetch('/search-hospitals', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestData), // Send the address in the request body
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Handle the list of hospitals data and display it to the user
+    console.log(data); // For demonstration purposes, you can log the data to the console
+    // You can write code here to display the results in your UI
+  })
+  .catch(error => {
+    // Handle errors
+    console.error(error);
+  });
+});
+
+         
+        });
+      </script>
+      
+</body>
+</html>
